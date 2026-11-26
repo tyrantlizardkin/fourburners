@@ -13,6 +13,9 @@ import kotlinx.serialization.json.jsonPrimitive
 
 val planJson: Json get() = app.fourburners.parse.PlanJson
 
+const val T0 = 1_000_000_000_000L
+fun at(sec: Int): Long = T0 + sec * 1000L
+
 fun referenceText(): String = File("src/main/assets/sample-plan.json").readText()
 
 fun reference(): Plan = planJson.decodeFromString(referenceText())
