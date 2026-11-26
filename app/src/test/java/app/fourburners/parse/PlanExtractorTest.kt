@@ -136,4 +136,14 @@ ${referenceText()}
         }
         ok(prose + NL + referenceText())
     }
+
+    @Test
+    fun `odd quote in prose before the plan`() {
+        ok("Use a 9\" pan {see note. Here is the plan: " + referenceText())
+    }
+
+    @Test
+    fun `unbalanced brace then odd quote before the plan`() {
+        ok("Use {see note 9\" pan. Here: " + referenceText())
+    }
 }

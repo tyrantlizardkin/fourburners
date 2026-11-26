@@ -27,7 +27,9 @@ object PlanParser {
         val version = (obj["cookplan"] as? JsonPrimitive)?.takeIf { !it.isString }?.intOrNull
         if (version != 1) return fail(1, WRONG_VERSION)
         return try {
-            ParseResult.Ok(PlanJson.decodeFromJsonElement(Plan.serializer(), obj))
+            val plan = PlanJson.decodeFromJsonElement(Plan.serializer(), obj)
+            val errors = PlanValidator.validate(plan)
+            if (errors.isEmpty()) ParseResult.Ok(plan) else ParseResult.Failed(errors, text)
         } catch (e: SerializationException) {
             fail(0, "The plan is malformed: ${describe(e)}.")
         } catch (e: IllegalArgumentException) {

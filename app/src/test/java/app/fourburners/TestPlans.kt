@@ -1,6 +1,7 @@
 package app.fourburners
 
 import app.fourburners.model.Plan
+import app.fourburners.model.Step
 import java.io.File
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -22,6 +23,10 @@ fun referenceEdited(edit: (MutableMap<String, JsonElement>) -> Unit): String {
     edit(map)
     return planJson.encodeToString(JsonElement.serializer(), JsonObject(map))
 }
+
+/** Copy of this plan with the step [id] transformed by [change]. */
+fun Plan.withStep(id: String, change: (Step) -> Step): Plan =
+    copy(steps = steps.map { if (it.id == id) change(it) else it })
 
 /** The reference plan's step with [id], with [overrides] keys replaced/added. */
 fun stepJson(id: String, vararg overrides: Pair<String, JsonElement>): JsonObject {
