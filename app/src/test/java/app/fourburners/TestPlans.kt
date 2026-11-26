@@ -10,7 +10,7 @@ import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 
-val planJson = Json { ignoreUnknownKeys = true; isLenient = true }
+val planJson: Json get() = app.fourburners.parse.PlanJson
 
 fun referenceText(): String = File("src/main/assets/sample-plan.json").readText()
 
