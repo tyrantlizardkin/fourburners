@@ -168,6 +168,31 @@ class EngineActionsTest {
         assertEquals(silenced, SessionEngine.undo(silenced, at(25)))
     }
 
+    @Test fun `independent timer starting at Done does not prevent undo`() {
+        val before = start(active("A"), passive("P", 10), passive("Q", 10, listOf("P")))
+        val done = SessionEngine.done(before, "A", at(10))
+        assertEquals(Status.RUNNING, done.undo!!.prevSteps.getValue("Q").status)
+        assertTrue(SessionEngine.canUndo(done, at(25)))
+        val undone = SessionEngine.undo(done, at(25))
+        assertEquals(SessionEngine.advance(before, at(25)).steps, undone.steps)
+        assertEquals(Status.RUNNING, undone.steps.getValue("A").status)
+        assertEquals(at(20), undone.steps.getValue("Q").endedAtMs)
+        assertNull(undone.undo)
+    }
+
+    @Test fun `acknowledged independent timer starting at Done does not prevent undo`() {
+        val before = start(active("A"), passive("P", 10), passive("Q", 10, listOf("P")))
+        val done = SessionEngine.done(before, "A", at(10))
+        val silenced = SessionEngine.acknowledge(done, "Q", at(25))
+        assertTrue(SessionEngine.canUndo(silenced, at(25)))
+        val undone = SessionEngine.undo(silenced, at(25))
+        val expected = SessionEngine.advance(before, at(25))
+        assertEquals(expected.steps + ("Q" to expected.steps.getValue("Q").copy(
+            acknowledgedAtMs = at(25))), undone.steps)
+        assertEquals(at(20), undone.steps.getValue("Q").endedAtMs)
+        assertNull(undone.undo)
+    }
+
     @Test fun `double Done cannot finish the next step`() {
         val once = SessionEngine.done(SessionEngine.start(reference(), T0), "c_on", at(20))
         assertEquals(once, SessionEngine.done(once, "c_on", at(20)))

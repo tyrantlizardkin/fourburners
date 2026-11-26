@@ -136,7 +136,8 @@ object SessionEngine {
         if (nowMs < Simulator.recordedThrough(current) || nowMs - point.doneAtMs !in 0L..30_000L) return false
         return current.plan.steps.none { step ->
             val state = current.steps.getValue(step.id)
-            step.kind == Kind.PASSIVE && state.startedAtMs == point.doneAtMs && state.status == Status.DONE
+            step.kind == Kind.PASSIVE && state.startedAtMs == point.doneAtMs && state.status == Status.DONE &&
+                point.prevSteps.getValue(step.id).status == Status.PENDING
         }
     }
 
