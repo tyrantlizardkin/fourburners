@@ -237,6 +237,8 @@ object PlanParser { fun parse(text: String): ParseResult }   // Task 4 adds the 
 
 ### Task 5: Simulator, `advance`, `project`, `view` (§7.1–7.5)
 
+**Completed 2026-11-26:** `bb471c5`. Debug build and 68 unit tests passed; separate spec and code-quality reviews passed. Twelve scheduling tests cover the reference projection, timer catch-up, clock rollback, event ordering, tool capacity, and interrupts.
+
 **Files:** Create `engine/Simulator.kt`, `engine/SessionEngine.kt`. Test: `engine/EngineScheduleTest.kt`; extend `TestPlans.kt`.
 
 **Interfaces — Produces:**
@@ -269,19 +271,21 @@ Test support in `TestPlans.kt`: `const val T0 = 1_000_000_000_000L`; `fun at(sec
 
 `advance = run(untilMs = nowMs, assumeDone = false)`. `project` = `advance`, then `run(untilMs = Long.MAX_VALUE, assumeDone = true)`, reading each step's start and end. A tool is occupied by any RUNNING step listing it, up to the tool's `count`. A session is finished when every step is DONE. Event times never go backwards: if `nowMs` is before an already-recorded timestamp, nothing is un-done and no event fires.
 
-- [ ] **Step 1:** Write failing tests:
+- [x] **Step 1:** Write failing tests:
   - `start runs c_on immediately`: `view(start(reference(), T0), T0).nowStepId == "c_on"`.
   - `on-plan projection ends at 3170`: `project(start(reference(), T0), T0)` gives `c4.endMs == at(3170)`, `r1.startMs == at(500)`, `c2.startMs == at(770)`, `b2.startMs == at(2330)`, `r6.startMs == at(2930)`.
   - `passives start and finish by themselves`: `start` at T0, then `advance` to `at(5)`: `c_on` RUNNING, `c_pre` PENDING.
   - `advance is idempotent and composable`: for the session with `c_on` hand-marked DONE at `at(20)`, `advance(advance(s, at(300)), at(900)) == advance(s, at(900))`.
   - `overrunning active projects its end at now`: session with `c1` RUNNING since `at(20)`; at `at(590)` (90 s over) `project` gives `c1.endMs == at(590)` and `r1.startMs == at(590)`.
   - `clock moved backwards does not throw or un-finish` *(Review Focus 4)*: take a session advanced to `at(900)`, call `advance(s, at(100))` and `project(s, at(100))`: no exception, every step that was DONE is still DONE, `elapsedSec(s, T0 - 5000) == 0`.
-- [ ] **Step 2:** Run `--tests "*EngineScheduleTest*"`. Expected: FAIL.
-- [ ] **Step 3:** Implement `Simulator` and the five `SessionEngine` functions.
-- [ ] **Step 4:** Run. Expected: PASS.
-- [ ] **Step 5:** Commit `feat: session simulator, advance and projection`.
+- [x] **Step 2:** Run `--tests "*EngineScheduleTest*"`. Expected: FAIL.
+- [x] **Step 3:** Implement `Simulator` and the five `SessionEngine` functions.
+- [x] **Step 4:** Run. Expected: PASS.
+- [x] **Step 5:** Commit `feat: session simulator, advance and projection`.
 
 ### Task 6: Actions (§7.3, 7.4, 7.8)
+
+**Completed 2026-11-26:** `0e400f7`, with undo/acknowledgement history corrections in `b4c1f84` and `8f1944d`. Debug build and 92 unit tests passed (24 action tests, 12 scheduling tests, 56 existing tests). Regression tests preserve timer ends and follow-up starts across Silence, undo, and serialization; unrelated timer completions do not block undo, while timers started by Done still do. The undo guard below clarifies the source spec's causal rule using the saved pre-Done state. Verified by JVM tests and debug APK build; no emulator or physical-device checks were performed for this pure-Kotlin scope.
 
 **Files:** Modify `engine/SessionEngine.kt`, `TestPlans.kt` (`drive`). Test: `engine/EngineActionsTest.kt`.
 
@@ -296,9 +300,9 @@ fun undo(session: Session, nowMs: Long): Session
 fun canUndo(session: Session, nowMs: Long): Boolean
 ```
 
-Rules beyond the spec text: see "Decisions" 3–7. `done` stores `UndoPoint(stepId, nowMs, steps before, slip before)`; `startEarly`, `extend` and another `done` replace or clear it; `acknowledge` keeps it and also applies the acknowledgement to `prevSteps`. `undo` is allowed when `nowMs - doneAtMs <= 30_000` and no passive step with `startedAtMs == doneAtMs` is DONE; it restores `prevSteps` and `prevSlipSec`, then advances. Slip is only updated by non-interrupt active steps: `max(slipSec, elapsedAtDone - (plannedStartSec + durationSec))`.
+Rules beyond the spec text: see "Decisions" 3–7. `done` stores `UndoPoint(stepId, nowMs, steps before, slip before)`; `startEarly`, `extend` and another `done` replace or clear it; `acknowledge` keeps it and also applies the acknowledgement to `prevSteps`. `undo` is allowed when `nowMs - doneAtMs <= 30_000` and no passive step that was PENDING in `prevSteps` and has `startedAtMs == doneAtMs` is DONE (a timer already RUNNING before Done must not block undo); it restores `prevSteps` and `prevSlipSec`, then advances. Slip is only updated by non-interrupt active steps: `max(slipSec, elapsedAtDone - (plannedStartSec + durationSec))`.
 
-- [ ] **Step 1:** Write failing tests (all on `reference()` unless stated):
+- [x] **Step 1:** Write failing tests (all on `reference()` unless stated):
   - `on plan finishes at 3170 with slip 0`: `drive(start, 3170)` → `view.finished`, `slipSec == 0`, max `endedAtMs == at(3170)`.
   - `late c1 slips plan-timed steps only`: `drive(start, 760, late = mapOf("c1" to 180))` → `slipSec == 180`, `r1.startedAtMs == at(680)`, `c_pre.endedAtMs == at(740)`; projected `c2.endMs - c2.startMs == 2_100_000`; projected `r2.startMs == at(1055)`.
   - `c_in interrupts a running r1`: same session at `at(760)` → `view.nowStepId == "r1"`, `view.interruptIds == listOf("c_in")`, `r1.startedAtMs` still `at(680)`.
@@ -313,10 +317,10 @@ Rules beyond the spec text: see "Decisions" 3–7. `done` stores `UndoPoint(step
   - `undo refused once a passive it started has ended` (custom plan: active A, then passive P of 10 s after A): `done(A)`, `undo` 15 s later → unchanged.
   - `double done is a no-op` *(Review Focus 3)*: `done("c_on", at(20))` twice in a row → second result equals the first; `c1` is RUNNING, not DONE.
   - `restore after process death`: `drive(start, 800)` then `advance(s, at(1400))` in one jump equals advancing through `at(900)`, `at(1000)`, … `at(1400)` in 100 s hops.
-- [ ] **Step 2:** Run `--tests "*EngineActionsTest*"`. Expected: FAIL.
-- [ ] **Step 3:** Implement the six functions and `drive`.
-- [ ] **Step 4:** Run the whole engine package. Expected: PASS.
-- [ ] **Step 5:** Commit `feat: engine actions with slip, interrupts and undo`.
+- [x] **Step 2:** Run `--tests "*EngineActionsTest*"`. Expected: FAIL.
+- [x] **Step 3:** Implement the six functions and `drive`.
+- [x] **Step 4:** Run the whole engine package. Expected: PASS.
+- [x] **Step 5:** Commit `feat: engine actions with slip, interrupts and undo`.
 
 ### Task 7: Tool and ingredient queries (§7.6, 7.7)
 
