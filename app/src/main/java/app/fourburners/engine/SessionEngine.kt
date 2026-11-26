@@ -115,8 +115,10 @@ object SessionEngine {
         val state = current.steps.getValue(stepId)
         if (step.kind != Kind.PASSIVE || state.status != Status.DONE || state.acknowledgedAtMs != null) return current
         val undo = current.undo?.let { point ->
-            val previous = point.prevSteps.getValue(stepId)
-            point.copy(prevSteps = point.prevSteps + (stepId to previous.copy(acknowledgedAtMs = nowMs)))
+            // Catch up the alternate history before a newer acknowledgement advances its event floor.
+            val previous = advance(current.copy(steps = point.prevSteps,
+                slipSec = point.prevSlipSec, undo = null), nowMs).steps
+            point.copy(prevSteps = previous + (stepId to previous.getValue(stepId).copy(acknowledgedAtMs = nowMs)))
         }
         return current.copy(steps = current.steps + (stepId to state.copy(acknowledgedAtMs = nowMs)), undo = undo)
     }

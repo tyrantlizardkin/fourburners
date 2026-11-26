@@ -163,6 +163,9 @@ class EngineActionsTest {
         val advanced = SessionEngine.advance(done, at(25))
         assertFalse(SessionEngine.canUndo(done, at(25)))
         assertEquals(advanced, SessionEngine.undo(done, at(25)))
+        val silenced = SessionEngine.acknowledge(done, "P", at(25))
+        assertFalse(SessionEngine.canUndo(silenced, at(25)))
+        assertEquals(silenced, SessionEngine.undo(silenced, at(25)))
     }
 
     @Test fun `double Done cannot finish the next step`() {
@@ -190,6 +193,37 @@ class EngineActionsTest {
         assertEquals(at(12), undone.steps.getValue("P").acknowledgedAtMs)
         assertEquals(Status.RUNNING, undone.steps.getValue("A").status)
         assertEquals(Status.PENDING, undone.steps.getValue("B").status)
+    }
+
+    @Test fun `acknowledging before undo preserves timer and follow up event times`() {
+        val before = start(passive("P", 12), active("A"),
+            active("I", after = listOf("P")).copy(interrupt = true))
+        val done = SessionEngine.done(before, "A", at(10))
+        val silenced = SessionEngine.acknowledge(done, "P", at(13))
+        assertTrue(SessionEngine.canUndo(silenced, at(14)))
+        val restored = planJson.decodeFromString<Session>(planJson.encodeToString(silenced))
+        val undone = SessionEngine.undo(restored, at(14))
+        val expected = SessionEngine.advance(before, at(14))
+        assertEquals(at(12), undone.steps.getValue("P").endedAtMs)
+        assertEquals(at(12), undone.steps.getValue("I").startedAtMs)
+        assertEquals(at(13), undone.steps.getValue("P").acknowledgedAtMs)
+        assertEquals(expected.steps + ("P" to expected.steps.getValue("P").copy(
+            acknowledgedAtMs = at(13))), undone.steps)
+        assertNull(undone.undo)
+    }
+
+    @Test fun `acknowledgement preserves other timer events in undo snapshot`() {
+        val before = start(passive("P", 5), passive("Q", 12), active("A"),
+            active("I", after = listOf("Q")).copy(interrupt = true))
+        val done = SessionEngine.done(before, "A", at(10))
+        val silenced = SessionEngine.acknowledge(done, "P", at(13))
+        assertTrue(SessionEngine.canUndo(silenced, at(14)))
+        val undone = SessionEngine.undo(silenced, at(14))
+        val expected = SessionEngine.advance(before, at(14))
+        assertEquals(at(12), undone.steps.getValue("Q").endedAtMs)
+        assertEquals(at(12), undone.steps.getValue("I").startedAtMs)
+        assertEquals(expected.steps + ("P" to expected.steps.getValue("P").copy(
+            acknowledgedAtMs = at(13))), undone.steps)
     }
 
     @Test fun `invalid actions leave an advanced session unchanged`() {
