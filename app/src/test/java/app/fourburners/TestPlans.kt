@@ -1,0 +1,31 @@
+package app.fourburners
+
+import app.fourburners.model.Plan
+import java.io.File
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
+
+val planJson = Json { ignoreUnknownKeys = true; isLenient = true }
+
+fun referenceText(): String = File("src/main/assets/sample-plan.json").readText()
+
+fun reference(): Plan = planJson.decodeFromString(referenceText())
+
+/** Decodes the reference, lets [edit] mutate a copy of the top-level map, returns re-encoded JSON. */
+fun referenceEdited(edit: (MutableMap<String, JsonElement>) -> Unit): String {
+    val map = planJson.parseToJsonElement(referenceText()).jsonObject.toMutableMap()
+    edit(map)
+    return planJson.encodeToString(JsonElement.serializer(), JsonObject(map))
+}
+
+/** The reference plan's step with [id], with [overrides] keys replaced/added. */
+fun stepJson(id: String, vararg overrides: Pair<String, JsonElement>): JsonObject {
+    val steps = planJson.parseToJsonElement(referenceText()).jsonObject["steps"]!!.jsonArray
+    val step = steps.first { it.jsonObject["id"]!!.jsonPrimitive.content == id }.jsonObject
+    return JsonObject(step + overrides)
+}
