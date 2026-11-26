@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Adjust sheet</title>
+</head>
+<body>
+
+
+<style>
+body{margin:0;font-family:Inter,system-ui,sans-serif;color:#E9EDEA}
+button{font-family:inherit;cursor:pointer}
+.d{font-family:'IBM Plex Sans',sans-serif;font-weight:700}
+.k{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#9FB0AE}
+.m{color:#9FB0AE}
+.row{display:flex;align-items:center;gap:10px;min-height:56px;border-bottom:1px solid #3A474F}
+.pl{height:40px;min-width:52px;padding:0 10px;border-radius:20px;border:1px solid #9FB0AE;background:transparent;color:#E9EDEA;font-size:13px;font-weight:600}
+</style>
+
+<div style="position: relative; width: 390px; height: 844px; background: #1E2529; overflow: hidden">
+  <div style="padding: 20px 16px; display: flex; flex-direction: column; gap: 13px; opacity: 0.35">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end">
+      <div class="d" style="font-size: 22px">Cooking · 0:18</div>
+      <div class="m" style="font-size: 12px">30 min to serve</div>
+    </div>
+    <div style="background: #A6D4A0; color: #1E2529; border-radius: 14px; padding: 18px 20px">
+      <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase">Now · Beans</div>
+      <div class="d" style="font-size: 30px; line-height: 1.15; margin-top: 6px">Trim the green beans</div>
+      <div style="font-size: 14px; margin-top: 6px">Snap off stem ends. Leave whole.</div>
+      <div style="height: 60px"></div>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 0; bottom: 0; width: 390px; box-sizing: border-box; background: #283136; border-radius: 20px 20px 0 0; padding: 10px 20px 24px; display: flex; flex-direction: column">
+    <div style="align-self: center; width: 40px; height: 4px; border-radius: 2px; background: #3A474F; margin-bottom: 12px"></div>
+    <div class="d" style="font-size: 20px; margin-bottom: 4px">Adjust</div>
+
+    <div class="row">
+      <div style="flex-grow: 1"><div style="font-size: 15px; font-weight: 500">Show clock times</div><div class="m" style="font-size: 12px">6:58 PM, not 0:34</div></div>
+      <span role="img" aria-label="switch, off" style="width: 44px; height: 26px; border-radius: 13px; background: #3A474F; display: inline-flex; align-items: center; padding: 0 3px; box-sizing: border-box"><span style="width: 20px; height: 20px; border-radius: 10px; background: #9FB0AE"></span></span>
+    </div>
+
+    <div class="row">
+      <div style="flex-grow: 1"><div style="font-size: 15px; font-weight: 500">Undo last Done</div><div class="m" style="font-size: 12px">Sauté onion, toast rice · 12 s ago · 18 s left to undo</div></div>
+      <button class="pl" style="border-color: #8FD0CF; color: #8FD0CF">Undo</button>
+    </div>
+
+    <div class="k" style="margin-top: 16px">Add time to a timer</div>
+    <div class="row">
+      <span style="width: 8px; height: 8px; border-radius: 4px; background: #F0A08C"></span>
+      <div style="flex-grow: 1"><div style="font-size: 15px; font-weight: 500">Chicken · oven</div><div class="m" style="font-size: 12px; font-variant-numeric: tabular-nums">24:48 left</div></div>
+      <button class="pl">+1</button><button class="pl">+5</button>
+    </div>
+    <div class="row">
+      <span style="width: 8px; height: 8px; border-radius: 4px; background: #A3B8F0"></span>
+      <div style="flex-grow: 1"><div style="font-size: 15px; font-weight: 500">Rice · simmer</div><div class="m" style="font-size: 12px; font-variant-numeric: tabular-nums">17:48 left</div></div>
+      <button class="pl">+1</button><button class="pl">+5</button>
+    </div>
+
+    <button style="margin-top: 20px; height: 48px; border-radius: 12px; border: 1px solid #EFA3BF; background: transparent; color: #EFA3BF; font-size: 15px; font-weight: 600">End session</button>
+    <div class="m" style="font-size: 12px; text-align: center; margin-top: 8px">Ends the cook and cancels all timers. Asks first.</div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Notifications</title>
+</head>
+<body>
+
+
+<style>
+body{margin:0;font-family:Inter,system-ui,sans-serif;color:#E9EDEA}
+button{font-family:inherit;cursor:pointer}
+.d{font-family:'IBM Plex Sans',sans-serif;font-weight:700}
+.k{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#9FB0AE}
+.m{color:#9FB0AE}
+.nc{background:#283136;border-radius:18px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.hd{display:flex;align-items:center;gap:6px;font-size:12px;color:#9FB0AE}
+.ac{height:44px;padding:0 4px;border:none;background:transparent;font-size:14px;font-weight:600}
+</style>
+
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding: 24px 12px 20px; background: #14191C; display: flex; flex-direction: column; gap: 10px">
+  <div class="d" style="font-size: 22px; padding: 0 8px">Notifications</div>
+  <div class="m" style="font-size: 13px; padding: 0 8px; margin-bottom: 6px">What the phone shows when the app is in the background or the screen is off.</div>
+
+  <div class="k" style="padding: 0 8px">Timer ended · sound and vibration</div>
+  <div class="nc" style="box-shadow: inset 5px 0 0 #F0A08C">
+    <div class="hd"><span style="width: 8px; height: 8px; border-radius: 4px; background: #F0A08C"></span>Four Burners · now</div>
+    <div style="font-size: 17px; font-weight: 600">Chicken out of the oven</div>
+    <div class="m" style="font-size: 14px">Chicken thighs · oven timer finished</div>
+    <div style="display: flex; gap: 20px; margin-top: 2px">
+      <button class="ac" style="color: #8FD0CF">Done</button>
+      <button class="ac" style="color: #E9EDEA">+1 min</button>
+      <button class="ac" style="color: #E9EDEA">Open</button>
+    </div>
+  </div>
+
+  <div class="k" style="padding: 0 8px; margin-top: 8px">Hold warning · second alert</div>
+  <div class="nc" style="box-shadow: inset 5px 0 0 #EBC38A">
+    <div class="hd"><span style="width: 8px; height: 8px; border-radius: 4px; background: #A3B8F0"></span>Four Burners · 3 min ago</div>
+    <div style="font-size: 17px; font-weight: 600">Rice off heat, keep the lid on</div>
+    <div style="font-size: 14px; color: #EBC38A">Has been waiting 3 min</div>
+    <div style="display: flex; gap: 20px; margin-top: 2px">
+      <button class="ac" style="color: #8FD0CF">Done</button>
+      <button class="ac" style="color: #E9EDEA">Open</button>
+    </div>
+  </div>
+
+  <div class="k" style="padding: 0 8px; margin-top: 8px">Ongoing · silent, while a cook is running</div>
+  <div class="nc">
+    <div class="hd"><span style="width: 8px; height: 8px; border-radius: 4px; background: #A6D4A0"></span>Four Burners · cooking 0:20</div>
+    <div style="font-size: 16px; font-weight: 600">Now: Trim the green beans</div>
+    <div style="display: flex; gap: 8px; margin-top: 6px">
+      <div style="flex-grow: 1; background: #504747; border: 1.5px solid #F0A08C; border-radius: 10px; padding: 8px 10px"><div style="font-size: 11px">Chicken · oven</div><div class="d" style="font-size: 20px; font-variant-numeric: tabular-nums">23:00</div></div>
+      <div style="flex-grow: 1; background: #414C5B; border: 1.5px solid #A3B8F0; border-radius: 10px; padding: 8px 10px"><div style="font-size: 11px">Rice · simmer</div><div class="d" style="font-size: 20px; font-variant-numeric: tabular-nums">16:00</div></div>
+    </div>
+    <div class="m" style="font-size: 13px; margin-top: 4px">Next: free at 0:23, then blanch the beans at 0:34</div>
+  </div>
+
+  <div class="k" style="padding: 0 8px; margin-top: 8px">Permission missing · shown in the app</div>
+  <div style="border: 1.5px solid #EBC38A; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; gap: 10px">
+    <div style="flex-grow: 1; font-size: 13px; line-height: 1.4">Notifications are off. Timers will only alert while this screen is open.</div>
+    <button style="height: 44px; padding: 0 12px; border-radius: 22px; border: 1px solid #EBC38A; background: transparent; color: #EBC38A; font-size: 13px; font-weight: 600">Allow</button>
+  </div>
+</div>
+
+</body>
+</html>

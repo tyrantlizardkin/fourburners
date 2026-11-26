@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Import, ready-at and lanes</title>
+</head>
+<body>
+
+
+<style>
+body{margin:0;font-family:Inter,system-ui,sans-serif;color:#E9EDEA}
+button{font-family:inherit;cursor:pointer}
+.d{font-family:'IBM Plex Sans',sans-serif;font-weight:700}
+.m{color:#9FB0AE}
+.l{position:absolute;height:16px;box-sizing:border-box;border-radius:4px}
+.rc{display:flex;align-items:center;gap:12px;width:100%;box-sizing:border-box;min-height:64px;padding:10px 14px;background:#283136;border:none;border-radius:12px;color:#E9EDEA;text-align:left}
+.bar{flex:none;width:5px;align-self:stretch;border-radius:3px}
+</style>
+
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding: 24px 16px 20px; background: #1E2529; display: flex; flex-direction: column; gap: 16px">
+  <div>
+    <div class="m" style="font-size: 13px">Chicken, rice, beans · start now and it's ready at</div>
+    <div class="d" style="font-size: 64px; line-height: 1.05; letter-spacing: -0.02em">7:12 PM</div>
+    <div class="m" style="font-size: 14px; margin-top: 4px">48 min. Your hands are busy for 34 of them and free for 14.</div>
+  </div>
+
+  <div style="background: #283136; border-radius: 12px; padding: 16px 23px">
+    <div style="position: relative; width: 312px; height: 64px">
+      <div class="l" style="top: 0; left: 0; width: 52px; background: #F0A08C"></div>
+      <div class="l" style="top: 0; left: 52px; width: 228px; background: #504747; border: 1.5px solid #F0A08C"></div>
+      <div class="l" style="top: 0; left: 280px; width: 6px; background: #F0A08C; border-radius: 2px"></div>
+      <div class="l" style="top: 0; left: 286px; width: 26px; background: #504747; border: 1.5px solid #F0A08C"></div>
+      <div class="l" style="top: 24px; left: 52px; width: 65px; background: #A3B8F0"></div>
+      <div class="l" style="top: 24px; left: 117px; width: 117px; background: #414C5B; border: 1.5px solid #A3B8F0"></div>
+      <div class="l" style="top: 24px; left: 236px; width: 64px; background: #414C5B; border: 1.5px solid #A3B8F0"></div>
+      <div class="l" style="top: 24px; left: 301px; width: 6px; background: #A3B8F0; border-radius: 2px"></div>
+      <div class="l" style="top: 48px; left: 117px; width: 32px; background: #A6D4A0"></div>
+      <div class="l" style="top: 48px; left: 149px; width: 72px; border: 1.5px dashed #3A474F"></div>
+      <div class="l" style="top: 48px; left: 221px; width: 58px; background: #A6D4A0"></div>
+    </div>
+    <div class="m" style="display: flex; justify-content: space-between; font-size: 11px; margin-top: 8px"><span>6:24 PM</span><span>6:48</span><span>7:12 PM</span></div>
+    <div class="m" style="display: flex; gap: 14px; font-size: 11px; margin-top: 10px">
+      <span style="display: inline-flex; align-items: center; gap: 5px"><span style="width: 12px; height: 8px; border-radius: 2px; background: #9FB0AE"></span>hands on</span>
+      <span style="display: inline-flex; align-items: center; gap: 5px"><span style="width: 12px; height: 8px; box-sizing: border-box; border-radius: 2px; border: 1.5px solid #9FB0AE"></span>runs alone</span>
+      <span style="display: inline-flex; align-items: center; gap: 5px"><span style="width: 12px; height: 8px; box-sizing: border-box; border-radius: 2px; border: 1.5px dashed #9FB0AE"></span>free</span>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 8px">
+    <button class="rc"><span class="bar" style="background: #F0A08C"></span><span style="flex-grow: 1"><span style="display: block; font-size: 16px; font-weight: 600">Chicken thighs</span><span class="m" style="display: block; font-size: 12px; margin-top: 2px">Serves 4 · 9 min hands on · 5 ingredients · 4 steps</span></span><span class="m" aria-hidden="true" style="font-size: 20px">›</span></button>
+    <button class="rc"><span class="bar" style="background: #A3B8F0"></span><span style="flex-grow: 1"><span style="display: block; font-size: 16px; font-weight: 600">Rice pilaf</span><span class="m" style="display: block; font-size: 12px; margin-top: 2px">Serves 4 · 11 min hands on · 5 ingredients · 6 steps</span></span><span class="m" aria-hidden="true" style="font-size: 20px">›</span></button>
+    <button class="rc"><span class="bar" style="background: #A6D4A0"></span><span style="flex-grow: 1"><span style="display: block; font-size: 16px; font-weight: 600">Green beans</span><span class="m" style="display: block; font-size: 12px; margin-top: 2px">Serves 4 · 14 min hands on · 5 ingredients · 3 steps</span></span><span class="m" aria-hidden="true" style="font-size: 20px">›</span></button>
+  </div>
+
+  <div class="m" style="font-size: 13px">First thing you'll do: <span style="color: #E9EDEA; font-weight: 500">season the thighs and get them on a sheet pan.</span></div>
+
+  <div style="margin-top: auto; display: flex; flex-direction: column; gap: 8px">
+    <button style="height: 56px; border-radius: 14px; border: none; background: #8FD0CF; color: #1E2529; font-size: 17px; font-weight: 600">Start cooking</button>
+    <button style="height: 44px; border: none; background: transparent; color: #9FB0AE; font-size: 14px; font-weight: 500">Cancel</button>
+  </div>
+</div>
+
+</body>
+</html>

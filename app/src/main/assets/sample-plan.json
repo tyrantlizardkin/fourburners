@@ -1,0 +1,56 @@
+{
+  "cookplan": 1,
+  "title": "Chicken, rice, beans",
+  "tools": [
+    {"id": "oven", "name": "Oven", "initial": "off"},
+    {"id": "burners", "name": "Burners", "count": 2},
+    {"id": "sheetpan", "name": "Sheet pan"},
+    {"id": "board", "name": "Cutting board"},
+    {"id": "ricepot", "name": "Rice pot"},
+    {"id": "blanchpot", "name": "Blanching pot"},
+    {"id": "skillet", "name": "Skillet"}
+  ],
+  "recipes": [
+    {"id": "c", "name": "Chicken thighs", "short": "Chicken", "servings": 4, "ingredients": [
+      {"id": "thighs", "name": "bone-in, skin-on chicken thighs", "amount": 8, "grams": 1200},
+      {"id": "oil", "name": "olive oil", "amount": 1, "unit": "tbsp", "grams": 14},
+      {"id": "salt", "name": "kosher salt", "amount": 1.5, "unit": "tsp", "grams": 5},
+      {"id": "pepper", "name": "black pepper", "amount": 0.5, "unit": "tsp", "grams": 1},
+      {"id": "paprika", "name": "smoked paprika", "amount": 2, "unit": "tsp", "grams": 5}
+    ], "notes": "Pat the skin dry before seasoning. Skin side up on the pan." },
+    {"id": "r", "name": "Rice pilaf", "short": "Rice", "servings": 4, "ingredients": [
+      {"id": "rice", "name": "long-grain white rice", "amount": 1.5, "unit": "cup", "grams": 278},
+      {"id": "onion", "name": "yellow onion", "amount": 1, "grams": 110, "note": "small, finely chopped"},
+      {"id": "butter", "name": "butter", "amount": 2, "unit": "tbsp", "grams": 28},
+      {"id": "stock", "name": "chicken stock", "amount": 2.75, "unit": "cup", "grams": 650},
+      {"id": "salt", "name": "kosher salt", "amount": 0.75, "unit": "tsp", "grams": 3}
+    ] },
+    {"id": "b", "name": "Green beans", "short": "Beans", "servings": 4, "ingredients": [
+      {"id": "beans", "name": "green beans", "amount": 1, "unit": "lb"},
+      {"id": "garlic", "name": "garlic cloves, sliced", "amount": 3, "grams": 9},
+      {"id": "oil", "name": "olive oil", "amount": 1, "unit": "tbsp", "grams": 14},
+      {"id": "lemon", "name": "lemon", "amount": 0.5, "note": "juice only"},
+      {"id": "salt", "name": "kosher salt", "amount": 0.5, "unit": "tsp", "grams": 2}
+    ] }
+  ],
+  "steps": [
+    {"id": "c_on", "recipe": "c", "kind": "active", "title": "Turn the oven on to 425°F", "duration_sec": 20, "planned_start_sec": 0, "after": [], "tools": [{"id": "oven", "needs": "off", "leaves": "heating"}]},
+    {"id": "c_pre", "recipe": "c", "kind": "passive", "title": "Oven preheats", "duration_sec": 720, "planned_start_sec": 20, "after": ["c_on"], "tools": [{"id": "oven", "needs": "heating", "leaves": "425°F"}], "timer_label": "preheat", "max_hold_sec": 3600},
+    {"id": "c1", "recipe": "c", "kind": "active", "title": "Season thighs, onto sheet pan", "duration_sec": 480, "planned_start_sec": 20, "after": [], "uses": ["thighs", "oil", "salt", "pepper", "paprika"], "tools": [{"id": "sheetpan", "needs": "clean", "leaves": "raw chicken"}], "detail": "Pat dry. Oil, salt, pepper, paprika. Skin side up."},
+    {"id": "r1", "recipe": "r", "kind": "active", "title": "Chop onion", "duration_sec": 240, "planned_start_sec": 500, "after": [], "uses": ["onion"], "tools": [{"id": "board", "needs": "clean", "leaves": "onion"}]},
+    {"id": "c_in", "recipe": "c", "kind": "active", "title": "Chicken into the oven", "duration_sec": 30, "planned_start_sec": 740, "after": ["c1", "c_pre"], "tools": [{"id": "oven", "needs": "425°F"}, {"id": "sheetpan"}], "interrupt": true},
+    {"id": "c2", "recipe": "c", "kind": "passive", "title": "Roast at 425°F", "duration_sec": 2100, "planned_start_sec": 770, "after": ["c_in"], "tools": [{"id": "oven"}, {"id": "sheetpan"}], "timer_label": "oven", "max_hold_sec": 120},
+    {"id": "r2", "recipe": "r", "kind": "active", "title": "Sauté onion, toast rice, add stock and cover", "duration_sec": 360, "planned_start_sec": 875, "after": ["r1"], "uses": ["onion", "butter", "rice", "stock", "salt"], "tools": [{"id": "ricepot", "needs": "clean", "leaves": "rice and stock"}, {"id": "burners"}]},
+    {"id": "r3", "recipe": "r", "kind": "passive", "title": "Simmer covered", "duration_sec": 1080, "planned_start_sec": 1235, "after": ["r2"], "tools": [{"id": "ricepot"}, {"id": "burners"}], "timer_label": "simmer", "max_hold_sec": 60},
+    {"id": "b1", "recipe": "b", "kind": "active", "title": "Trim the green beans", "duration_sec": 300, "planned_start_sec": 1235, "after": [], "uses": ["beans"], "detail": "Snap off stem ends. Leave whole."},
+    {"id": "b_pot", "recipe": "b", "kind": "active", "title": "Fill a pot with salted water, set it to boil", "duration_sec": 60, "planned_start_sec": 1790, "after": [], "uses": ["salt"], "tools": [{"id": "blanchpot", "needs": "clean", "leaves": "heating water"}, {"id": "burners"}]},
+    {"id": "b_boil", "recipe": "b", "kind": "passive", "title": "Water comes to a boil", "duration_sec": 480, "planned_start_sec": 1850, "after": ["b_pot"], "tools": [{"id": "blanchpot", "needs": "heating water", "leaves": "boiling water"}, {"id": "burners"}], "timer_label": "boil", "max_hold_sec": 600},
+    {"id": "r4", "recipe": "r", "kind": "active", "title": "Rice off heat, keep the lid on", "duration_sec": 15, "planned_start_sec": 2315, "after": ["r3"], "tools": [{"id": "ricepot"}, {"id": "burners"}], "interrupt": true},
+    {"id": "r5", "recipe": "r", "kind": "passive", "title": "Steam off heat", "duration_sec": 600, "planned_start_sec": 2330, "after": ["r4"], "tools": [{"id": "ricepot"}], "timer_label": "steam", "max_hold_sec": 900},
+    {"id": "b2", "recipe": "b", "kind": "active", "title": "Blanch the beans, then drain", "duration_sec": 240, "planned_start_sec": 2330, "after": ["b1", "b_boil"], "uses": ["beans"], "tools": [{"id": "blanchpot", "needs": "boiling water", "leaves": "hot water"}, {"id": "burners"}]},
+    {"id": "b3", "recipe": "b", "kind": "active", "title": "Sauté with garlic, finish with lemon", "duration_sec": 300, "planned_start_sec": 2570, "after": ["b2"], "uses": ["beans", "garlic", "oil", "lemon"], "tools": [{"id": "skillet", "needs": "clean", "leaves": "cooked beans"}, {"id": "burners"}]},
+    {"id": "c3", "recipe": "c", "kind": "active", "title": "Chicken out of the oven", "duration_sec": 60, "planned_start_sec": 2870, "after": ["c2"], "tools": [{"id": "oven", "leaves": "hot, empty"}, {"id": "sheetpan", "leaves": "cooked chicken"}], "interrupt": true},
+    {"id": "c4", "recipe": "c", "kind": "passive", "title": "Rest", "duration_sec": 240, "planned_start_sec": 2930, "after": ["c3"], "tools": [{"id": "sheetpan"}], "timer_label": "rest", "max_hold_sec": 600},
+    {"id": "r6", "recipe": "r", "kind": "active", "title": "Fluff with a fork", "duration_sec": 60, "planned_start_sec": 2930, "after": ["r5"], "tools": [{"id": "ricepot", "leaves": "cooked rice"}]}
+  ]
+}

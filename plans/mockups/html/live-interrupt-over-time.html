@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Live, interrupt and over time</title>
+</head>
+<body>
+
+
+<style>
+body{margin:0;font-family:Inter,system-ui,sans-serif;color:#E9EDEA}
+button{font-family:inherit;cursor:pointer}
+.d{font-family:'IBM Plex Sans',sans-serif;font-weight:700}
+.k{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#9FB0AE}
+.m{color:#9FB0AE}
+.nx{display:flex;align-items:center;gap:12px;height:50px;box-sizing:border-box;background:#283136;border-radius:10px;padding:0 14px;font-size:14px}
+</style>
+
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding: 20px 16px; background: #1E2529; display: flex; flex-direction: column; gap: 13px">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end">
+    <div class="d" style="font-size: 22px">Cooking · 0:39</div>
+    <div style="font-size: 12px; color: #EBC38A">10 min to serve · 1 behind</div>
+  </div>
+
+  <div style="background: #414C5B; border: 1.5px solid #A3B8F0; border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+    <div style="display: flex; align-items: center; gap: 12px">
+      <div style="flex-grow: 1; min-width: 0">
+        <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; display: flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 4px; background: #A3B8F0"></span>Timer ended · Rice</div>
+        <div class="d" style="font-size: 19px; line-height: 1.2; margin-top: 4px">Rice off heat, keep the lid on</div>
+      </div>
+      <button style="height: 44px; padding: 0 20px; border-radius: 22px; border: none; background: #A3B8F0; color: #1E2529; font-size: 15px; font-weight: 600">Done</button>
+    </div>
+    <div style="font-size: 13px; font-weight: 500; color: #EBC38A">Waiting 3 min. Planned hold was 1 min.</div>
+  </div>
+
+  <div style="background: #A6D4A0; color: #1E2529; border-radius: 14px; padding: 18px 20px">
+    <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase">Now · Beans</div>
+    <div class="d" style="font-size: 30px; line-height: 1.15; margin-top: 6px">Blanch the beans</div>
+    <div style="font-size: 14px; margin-top: 6px">Salted boiling water until bright green.</div>
+    <div style="display: flex; align-items: center; gap: 8px; margin-top: 16px">
+      <div style="flex-grow: 1"><span style="display: inline-block; background: #1E2529; color: #EBC38A; font-size: 13px; font-weight: 600; padding: 4px 10px; border-radius: 12px">1 min over</span></div>
+      <button style="height: 44px; padding: 0 14px; border-radius: 22px; border: 1.5px solid #1E2529; background: transparent; color: #1E2529; font-size: 14px; font-weight: 600">+1 min</button>
+      <button style="height: 44px; padding: 0 22px; border-radius: 22px; border: none; background: #1E2529; color: #E9EDEA; font-size: 15px; font-weight: 600">Done</button>
+    </div>
+  </div>
+
+  <div class="k">Running without you</div>
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+    <div style="background: #504747; border: 1.5px solid #F0A08C; border-radius: 12px; padding: 12px 14px">
+      <div style="font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 4px; background: #F0A08C"></span>Chicken · oven</div>
+      <div class="d" style="font-size: 28px; font-variant-numeric: tabular-nums">4:00</div>
+      <div class="m" style="font-size: 12px">then chicken out of the oven</div>
+    </div>
+    <div style="border: 1.5px dashed #3A474F; border-radius: 12px; padding: 12px 14px">
+      <div class="m" style="font-size: 12px; font-weight: 600">Rice · steam</div>
+      <div class="m" style="font-size: 13px; margin-top: 8px; line-height: 1.35">Starts when the rice is off the heat</div>
+    </div>
+  </div>
+
+  <div class="k">Next</div>
+  <div style="display: flex; flex-direction: column; gap: 6px">
+    <div class="nx" style="border-left: 5px solid #A6D4A0"><span class="m" style="width: 36px; font-size: 12px">0:39</span><span style="flex-grow: 1; font-weight: 500">Sauté with garlic, lemon</span><span class="m" style="font-size: 12px">5 min</span></div>
+    <div class="nx" style="border-left: 5px solid #F0A08C"><span class="m" style="width: 36px; font-size: 12px">0:43</span><span style="flex-grow: 1; font-weight: 500">Chicken out of the oven</span><span class="m" style="font-size: 12px">timer</span></div>
+    <div class="nx" style="border-left: 5px solid #A3B8F0"><span class="m" style="width: 36px; font-size: 12px">0:49</span><span style="flex-grow: 1; font-weight: 500">Fluff with a fork</span><span class="m" style="font-size: 12px">1 min</span></div>
+  </div>
+
+  <div style="margin-top: auto; display: flex; gap: 8px">
+    <button style="flex-grow: 1; height: 44px; border-radius: 8px; border: 1px solid #3A474F; background: transparent; font-size: 14px; font-weight: 500; color: #E9EDEA">Adjust</button>
+    <button style="flex-grow: 1; height: 44px; border-radius: 8px; border: 1px solid #3A474F; background: transparent; font-size: 14px; font-weight: 500; color: #E9EDEA">Full schedule</button>
+  </div>
+</div>
+
+</body>
+</html>

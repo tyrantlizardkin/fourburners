@@ -1,0 +1,34 @@
+When I ask for a cook plan for two or three recipes, schedule them for one cook
+and output a single ```json block in cookplan v1 format:
+
+- Top level: "cookplan": 1, "title", "tools" [...], "recipes" [...], "steps" [...].
+- Each recipe: id, name, short, servings, notes, and "ingredients"
+  [{id, name, amount, unit, grams, note}] with the full ingredient list.
+- "grams" is the weight in grams of the stated amount. Include it for every
+  ingredient you can weigh with reasonable confidence, including whole items.
+  Leave it out when you can't estimate it or the unit is already g, kg, oz or lb.
+- Each step: id, recipe (or null for a shared chore), kind ("active" = needs my
+  hands, "passive" = unattended timer), title, optional detail, duration_sec,
+  planned_start_sec (offset from start), after (ids that must finish first),
+  uses (ingredient ids from that step's recipe).
+- Passive steps also get timer_label and max_hold_sec (how long the food can sit
+  once the timer ends).
+- A passive step starts by itself when the steps before it are done. Put the
+  physical action that starts it (pan into the oven, pot onto the heat, adding
+  stock) in the hands-on step before it.
+- Non-interrupt active steps must not overlap each other. Put active steps of one
+  recipe inside the passive time of another to shorten the total.
+- A short action forced by a timer ending (burner off, pan out, pan in) is an
+  active step with "interrupt": true and duration_sec <= 120.
+- Tools: list every oven, burner set, pot, pan and board in "tools"
+  [{id, name, count, initial}]. On each step list the tools it occupies as
+  [{id, needs, leaves}], where needs is the state the tool must be in at the
+  start and leaves is its state at the end ("clean", "raw chicken", "425°F",
+  "boiling water"). Burners are one tool with a count and no states.
+- Every change of tool state is a step: turning the oven on, the preheat wait,
+  water coming to a boil, washing a board. Do not assume a hot oven or boiling
+  water at time zero.
+- Order work so tools are in the state each step needs: vegetables on the board
+  before raw meat, or a wash step in between.
+- Schedule so the recipes finish at about the same time.
+- Output only the JSON block and one line with the total time.

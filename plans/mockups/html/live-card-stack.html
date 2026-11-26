@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Live, card stack</title>
+</head>
+<body>
+
+
+<style>
+body{margin:0;font-family:Inter,system-ui,sans-serif;color:#E9EDEA}
+button{font-family:inherit;cursor:pointer}
+.d{font-family:'IBM Plex Sans',sans-serif;font-weight:700}
+.k{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#9FB0AE}
+.m{color:#9FB0AE}
+.nx{display:flex;align-items:center;gap:12px;height:50px;box-sizing:border-box;background:#283136;border-radius:10px;padding:0 14px;font-size:14px}
+.l{position:absolute;height:10px;box-sizing:border-box;border-radius:3px}
+</style>
+
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding: 20px 16px; background: #1E2529; display: flex; flex-direction: column; gap: 13px">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end">
+    <div class="d" style="font-size: 22px">Cooking · 0:20</div>
+    <div class="m" style="font-size: 12px">28 min to serve</div>
+  </div>
+
+  <div style="background: #A6D4A0; color: #1E2529; border-radius: 14px; padding: 18px 20px">
+    <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase">Now · Beans</div>
+    <div class="d" style="font-size: 30px; line-height: 1.15; margin-top: 6px">Trim the green beans</div>
+    <div style="font-size: 14px; margin-top: 6px">Snap off stem ends. Leave whole.</div>
+    <div style="display: flex; align-items: center; gap: 8px; margin-top: 16px">
+      <div style="flex-grow: 1; font-size: 13px; font-weight: 500">about 3 min left</div>
+      <button style="height: 44px; padding: 0 14px; border-radius: 22px; border: 1.5px solid #1E2529; background: transparent; color: #1E2529; font-size: 14px; font-weight: 600">+1 min</button>
+      <button style="height: 44px; padding: 0 22px; border-radius: 22px; border: none; background: #1E2529; color: #E9EDEA; font-size: 15px; font-weight: 600">Done</button>
+    </div>
+  </div>
+
+  <div class="k">Running without you</div>
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+    <div style="background: #504747; border: 1.5px solid #F0A08C; border-radius: 12px; padding: 12px 14px">
+      <div style="font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 4px; background: #F0A08C"></span>Chicken · oven</div>
+      <div class="d" style="font-size: 28px; font-variant-numeric: tabular-nums">23:00</div>
+      <div class="m" style="font-size: 12px">then chicken out of the oven</div>
+    </div>
+    <div style="background: #414C5B; border: 1.5px solid #A3B8F0; border-radius: 12px; padding: 12px 14px">
+      <div style="font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 4px; background: #A3B8F0"></span>Rice · simmer</div>
+      <div class="d" style="font-size: 28px; font-variant-numeric: tabular-nums">16:00</div>
+      <div class="m" style="font-size: 12px">then rice off heat, lid on</div>
+    </div>
+  </div>
+
+  <div class="k">Next</div>
+  <div style="display: flex; flex-direction: column; gap: 6px">
+    <div class="nx" style="background: transparent; border: 1.5px dashed #3A474F"><span class="m" style="width: 36px; font-size: 12px">0:23</span><span class="m" style="flex-grow: 1">Free for 11 min</span></div>
+    <div class="nx" style="border-left: 5px solid #A6D4A0"><span class="m" style="width: 36px; font-size: 12px">0:34</span><span style="flex-grow: 1; font-weight: 500">Blanch the beans</span><span class="m" style="font-size: 12px">4 min</span></div>
+    <div class="nx" style="border-left: 5px solid #A3B8F0"><span class="m" style="width: 36px; font-size: 12px">0:36</span><span style="flex-grow: 1; font-weight: 500">Rice off heat, keep the lid on</span><span class="m" style="font-size: 12px">timer</span></div>
+  </div>
+
+  <div style="margin-top: auto; background: #283136; border-radius: 12px; padding: 14px 23px">
+    <div style="position: relative; width: 312px; height: 46px">
+      <div class="l" style="top: 0; left: 0; width: 52px; background: #F0A08C"></div>
+      <div class="l" style="top: 0; left: 52px; width: 228px; background: #504747; border: 1.5px solid #F0A08C"></div>
+      <div class="l" style="top: 0; left: 280px; width: 6px; background: #F0A08C"></div>
+      <div class="l" style="top: 0; left: 286px; width: 26px; background: #504747; border: 1.5px solid #F0A08C"></div>
+      <div class="l" style="top: 18px; left: 52px; width: 65px; background: #A3B8F0"></div>
+      <div class="l" style="top: 18px; left: 117px; width: 117px; background: #414C5B; border: 1.5px solid #A3B8F0"></div>
+      <div class="l" style="top: 18px; left: 236px; width: 64px; background: #414C5B; border: 1.5px solid #A3B8F0"></div>
+      <div class="l" style="top: 18px; left: 301px; width: 6px; background: #A3B8F0"></div>
+      <div class="l" style="top: 36px; left: 117px; width: 32px; background: #A6D4A0"></div>
+      <div class="l" style="top: 36px; left: 221px; width: 58px; background: #A6D4A0"></div>
+      <div style="position: absolute; top: -6px; left: 129px; width: 2px; height: 58px; background: #8FD0CF"></div>
+    </div>
+    <div class="m" style="display: flex; justify-content: space-between; font-size: 11px; margin-top: 8px"><span>0:00</span><span>now 0:20</span><span>0:48</span></div>
+  </div>
+
+  <div style="display: flex; gap: 8px">
+    <button style="flex-grow: 1; height: 44px; border-radius: 8px; border: 1px solid #3A474F; background: transparent; font-size: 14px; font-weight: 500; color: #E9EDEA">Adjust</button>
+    <button style="flex-grow: 1; height: 44px; border-radius: 8px; border: 1px solid #3A474F; background: transparent; font-size: 14px; font-weight: 500; color: #E9EDEA">Full schedule</button>
+  </div>
+</div>
+
+</body>
+</html>
