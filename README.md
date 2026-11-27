@@ -10,14 +10,13 @@ Four Burners takes a plan — a set of recipes with their cook times and steps �
 
 | Area | Status |
 |---|---|
-| **Plan import** — paste or share plain text from any source | Done |
+| **Plan import** — paste or share plain text from AI assistants | Done |
 | **Text parsing** — extract recipes, steps, durations, capacity hints | Done |
 | **Schedule generation** — interleave steps across burners (pots/stoves) | Done |
 | **Live session** — timer tracking, undo, slip, interrupts | Done |
 | **Full schedule view** — projected timeline with status indicators | Done |
 | **Session finish summary** — took vs planned, diff stats | Done |
 | **Offline persistence** — JSON save/restore via app-private storage | Done |
-| **Share-sheet intake** — import plans from any app | Done |
 
 ## Tech Stack
 
@@ -62,7 +61,3 @@ plans/               Spec, mockups, brand assets, sample plans
 1. Open this project directory
 2. Sync Gradle files when prompted
 3. Run the `FourBurners` app configuration (connected device or emulator)
-
-## License
-
-Private / internal project.
